@@ -1,10 +1,10 @@
 const express = require ("express")
-const farmers = require ("../models/farmers")
+const Farmer = require ("../models/farmers")
 const router = express.Router();
 
-router.post("/", async (req, res) => {
+router.post("/createFarmer", async (req, res) => {
     try {
-        const farmer = new farmers(req.body);
+        const farmer = new Farmer(req.body);
 
         const savedFarmer = await farmer.save();
 
@@ -13,6 +13,19 @@ router.post("/", async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: "Failed to create farmer",
+            error: error.message
+        });
+    }
+});
+
+router.get("/fetchFarmers", async (req, res) => {
+    try {
+        const farmers = await Farmer.find();
+
+        res.status(200).json(farmers);
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch farmers",
             error: error.message
         });
     }

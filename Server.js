@@ -13,7 +13,7 @@ connectDB().then(r => {});
 app.use(express.json());
 
 //Endpoints - add all the endpoints here
-app.use("/createFarmer", farmersRoute)
+app.use("/", farmersRoute)
 
 app.get("/", (req, res) => {
     res.send("API is running");
