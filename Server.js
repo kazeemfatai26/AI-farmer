@@ -5,6 +5,7 @@ const connectDB = require("./src/config/db");
 
 //Routes - add all the routes here
 const farmersRoute = require("../Academic bootcamp/src/routes/farmersRoute")
+const GenAIRoute = require("../Academic bootcamp/src/routes/GEN-AI-Route")
 
 const app = express();
 
@@ -14,6 +15,7 @@ app.use(express.json());
 
 //Endpoints - add all the endpoints here
 app.use("/", farmersRoute)
+app.use("/", GenAIRoute)
 
 app.get("/", (req, res) => {
     res.send("API is running");
