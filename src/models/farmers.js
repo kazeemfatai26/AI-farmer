@@ -1,12 +1,12 @@
 const mongoose = require("mongoose");
 
 const farmerSchema = new mongoose.Schema({
-    name: {
+    phone_number: {
         type: String,
         required: true
     },
 
-    phone: {
+    name: {
         type: String,
         required: true
     },
@@ -16,10 +16,24 @@ const farmerSchema = new mongoose.Schema({
         required: true
     },
 
-    crop: {
+    sector: {
+        type: String,
+        required: false
+    },
+    crop_type: {
+        type: String,
+        required: true
+    },
+    planting_date: {
+        type: Date,
+        required: true
+    },
+    preferred_language: {
         type: String,
         required: true
     }
+}, {
+    timestamps: true
 });
 
 module.exports = mongoose.model("farmer", farmerSchema);

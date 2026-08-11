@@ -4,8 +4,8 @@ const express = require("express");
 const connectDB = require("./src/config/db");
 
 //Routes - add all the routes here
-const farmersRoute = require("../Academic bootcamp/src/routes/farmersRoute")
-const GenAIRoute = require("../Academic bootcamp/src/routes/GEN-AI-Route")
+const farmersRoute = require("./src/routes/farmersRoute.js")
+const GenAIRoute = require("./src/routes/GEN-AI-Route.js")
 
 const app = express();
 
