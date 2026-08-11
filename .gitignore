@@ -1,0 +1,12 @@
+# Local Netlify folder
+.netlify
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+
+# Node dependencies and local package metadata
+node_modules/
+package-lock.json
+
