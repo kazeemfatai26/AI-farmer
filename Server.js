@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const connectDB = require("./src/config/db");
 const cors = require("cors");
+const cors = require("cors");
 
 //Routes - add all the routes here
 const farmersRoute = require("./src/routes/farmersRoute")
