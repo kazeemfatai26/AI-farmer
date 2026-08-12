@@ -31,4 +31,24 @@ router.get("/fetchFarmers", async (req, res) => {
     }
 });
 
+router.get("/fetchFarmer/:id", async (req, res) => {
+    try {
+        const farmer = await Farmer.findById(req.params.id);
+
+        if (!farmer) {
+            return res.status(404).json({
+                message: "Farmer not found"
+            });
+        }
+
+        res.status(200).json(farmer);
+
+    } catch (error) {
+        res.status(500).json({
+            message: "Failed to fetch farmer",
+            error: error.message
+        });
+    }
+});
+
 module.exports = router;
