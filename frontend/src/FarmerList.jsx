@@ -19,10 +19,10 @@ const FarmerList = () => {
 
   const handleSendAdvisory = async (farmerId) => {
   try {
-    const response = await fetch(`PLACEHOLDER_ENDPOINT/${farmerId}`, {
+    const response = await fetch(`https://ai-farmer-hgo6.onrender.com/send-advisory/${farmerId}`, {
       method: "POST",
     });
-
+    console.log("Response from send advisory:", response);
     if (!response.ok) {
       throw new Error("Failed to send advisory");
     }
@@ -63,8 +63,6 @@ const FarmerList = () => {
       <td className="px-4 py-2 text-sm text-gray-800">{farmer.crop_type}</td>
       <td className="px-4 py-2 text-sm text-gray-800">
         {new Date(farmer.planting_date).toLocaleDateString()}
-        <td className="px-4 py-2 text-sm">
-</td>
       </td>
       <td className="px-4 py-2 text-sm text-gray-800">
         {farmer.preferred_language === "rw" ? "Kinyarwanda" : "English"}
