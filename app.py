@@ -26,15 +26,12 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-
-    # Frontend URLs allowed to access this API
     allow_origins=[
         "http://localhost:5173",
 
         # Replace this with your actual deployed frontend URL
         "https://your-deployed-frontend-url.com"
     ],
-
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -42,7 +39,7 @@ app.add_middleware(
 
 
 # =========================================================
-# HOME
+# HOME ENDPOINT
 # =========================================================
 
 @app.get("/")
@@ -84,7 +81,7 @@ def send_advisory(farmer_id: str):
 
 
         # =================================================
-        # 1. FETCH FARMER
+        # 1. FETCH FARMER INFORMATION
         # =================================================
 
         print("\n[1/5] Fetching farmer information...")
@@ -117,19 +114,30 @@ def send_advisory(farmer_id: str):
 
         current_weather = weather["current"]
 
-        temperature = current_weather["temperature"]
+        temperature = current_weather.get(
+            "temperature"
+        )
 
-        condition = current_weather[
-            "weather_descriptions"
-        ][0]
+        condition = current_weather.get(
+            "weather_descriptions",
+            ["Unknown"]
+        )[0]
 
-        rainfall = current_weather["precip"]
+        rainfall = current_weather.get(
+            "precip"
+        )
 
-        humidity = current_weather["humidity"]
+        humidity = current_weather.get(
+            "humidity"
+        )
 
-        wind_speed = current_weather["wind_speed"]
+        wind_speed = current_weather.get(
+            "wind_speed"
+        )
 
-        cloudcover = current_weather["cloudcover"]
+        cloudcover = current_weather.get(
+            "cloudcover"
+        )
 
         print("Weather received.")
 
@@ -157,18 +165,39 @@ def send_advisory(farmer_id: str):
 
 
         # =================================================
-        # 4. GENERATE ADVISORY USING GEMINI
+        # 4. GENERATE ADVISORY
         # =================================================
 
-        print("\n[4/5] Generating advisory using Gemini...")
+        print("\n[4/5] Generating agricultural advisory...")
 
-        message = generate_advisory(
+        advisory = generate_advisory(
             farmer,
             weather,
             recommendation
         )
 
-        print("Advisory generated successfully.")
+        # translator.py returns:
+        #
+        # {
+        #     "message": "...",
+        #     "ai_generated": True/False,
+        #     "source": "Gemini"/"Fallback"
+        # }
+
+        message = advisory["message"]
+
+        ai_generated = advisory["ai_generated"]
+
+        advisory_source = advisory["source"]
+
+
+        print(
+            f"Advisory source: {advisory_source}"
+        )
+
+        print(
+            f"AI generated: {ai_generated}"
+        )
 
         print("\nGenerated SMS:")
         print("----------------------------------------")
@@ -233,7 +262,11 @@ def send_advisory(farmer_id: str):
                 {}
             ),
 
-            "message": message,
+            "advisory": {
+                "message": message,
+                "ai_generated": ai_generated,
+                "source": advisory_source
+            },
 
             "sms_response": sms_response
         }
@@ -256,7 +289,6 @@ def send_advisory(farmer_id: str):
 
         raise HTTPException(
             status_code=500,
-
             detail={
                 "status": "error",
                 "message": str(e),
