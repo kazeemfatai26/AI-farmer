@@ -30,7 +30,7 @@ app.add_middleware(
         "http://localhost:5173",
 
         # Replace this with your actual deployed frontend URL
-        "https://your-deployed-frontend-url.com"
+        "https://ai-farmer-hgo6.onrender.com"
     ],
     allow_credentials=False,
     allow_methods=["*"],
