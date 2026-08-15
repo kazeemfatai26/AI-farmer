@@ -1,37 +1,31 @@
-from smsmobileapi import SMSSender
+import requests
 from config import SMS_API_KEY
 
 
 def send_sms(phone_number, message):
 
-    # ==================================
-    # Display recipient
-    # ==================================
-
     print(f"SMS recipient: {phone_number}")
 
+    url = "https://api.smsmobileapi.com/sendsms"
 
-    # ==================================
-    # Create SMS sender
-    # ==================================
+    payload = {
+        "api_key": SMS_API_KEY,
+        "to": phone_number,
+        "message": message
+    }
 
-    sms = SMSSender(
-        api_key=SMS_API_KEY
+    response = requests.post(
+        url,
+        data=payload,
+        timeout=30
     )
 
+    print("SMS status:", response.status_code)
+    print("SMS response:", response.text)
 
-    # ==================================
-    # Send SMS
-    # ==================================
+    response.raise_for_status()
 
-    response = sms.send_message(
-        to=phone_number,
-        message=message
-    )
-
-
-    # ==================================
-    # Return response
-    # ==================================
-
-    return response
+    try:
+        return response.json()
+    except ValueError:
+        return response.text
