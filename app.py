@@ -30,7 +30,8 @@ app.add_middleware(
         "http://localhost:5173",
 
         # Replace this with your actual deployed frontend URL
-        "https://ai-farmer-hgo6.onrender.com"
+        "https://ai-farmer-hgo6.onrender.com",
+        "https://ai-farmeradvisory.netlify.app"
     ],
     allow_credentials=False,
     allow_methods=["*"],
