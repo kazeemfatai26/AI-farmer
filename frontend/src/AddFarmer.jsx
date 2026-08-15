@@ -15,12 +15,17 @@ const [isSubmitting, setIsSubmitting] = useState(false);
 
 const [showForm, setShowForm] = useState(true);
 
+const [duplicateError, setDuplicateError] = useState("");
+
 const handleSubmit = async (e) => {
+  setDuplicateError("");
   e.preventDefault();
 
   setIsSubmitting(true);
 
-  const newFarmer = {
+  try { 
+
+    const newFarmer = {
     name: name,
     phone_number: phoneNumber,
     district: district,
@@ -30,7 +35,19 @@ const handleSubmit = async (e) => {
     preferred_language: preferredLanguage,
   };
 
-  try {
+    const checkResponse = await fetch("https://ai-farmer-56eq.onrender.com/fetchFarmers");
+    const existingFarmers = await checkResponse.json();
+
+    const isDuplicate = existingFarmers.some(
+      (farmer) => farmer.phone_number === phoneNumber
+    );
+
+    if (isDuplicate) {
+      setDuplicateError("A farmer with this phone number is already registered.");
+      setIsSubmitting(false);
+      return;
+    }
+
     const response = await fetch("https://ai-farmer-56eq.onrender.com/createFarmer", {
       method: "POST",
       headers: {
@@ -53,7 +70,7 @@ const handleSubmit = async (e) => {
   } catch (error) {
     console.error("Error adding farmer:", error);
     alert("Something went wrong while saving. Please try again.");
-     setIsSubmitting(false);
+    setIsSubmitting(false);
   }
 };
 
@@ -75,6 +92,11 @@ const handleRegisterAnother = () => {   // ← ADD IT HERE, right after
         {successMessage && (
       <div className="mb-4 p-4 bg-green-100 text-green-800 rounded-lg border border-green-300">
         <p className="font-semibold">{successMessage}</p>
+      </div>
+    )}
+      {duplicateError && (                                    
+      <div className="mb-4 p-3 bg-red-100 text-red-800 rounded-lg border border-red-300">
+        {duplicateError}
       </div>
     )}
         {showForm ? (
