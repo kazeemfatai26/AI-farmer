@@ -22,7 +22,7 @@ def get_weather(location):
     data = response.json()
 
     if "error" in data:
-        raise Exception(
+        raise ValueError(
             data["error"].get(
                 "info",
                 "Weather API error"
