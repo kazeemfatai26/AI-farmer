@@ -9,8 +9,9 @@ from translator import generate_advisory
 from sms import send_sms
 
 
-# Create FastAPI application
-
+# =========================================================
+# FASTAPI APPLICATION
+# =========================================================
 
 app = FastAPI(
     title="AI Farmer Advisory API",
@@ -19,20 +20,30 @@ app = FastAPI(
 )
 
 
+# =========================================================
 # CORS
-
+# =========================================================
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+
+    # Frontend URLs allowed to access this API
+    allow_origins=[
+        "http://localhost:5173",
+
+        # Replace this with your actual deployed frontend URL
+        "https://your-deployed-frontend-url.com"
+    ],
+
     allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
 
-# Home endpoint
-
+# =========================================================
+# HOME
+# =========================================================
 
 @app.get("/")
 def home():
@@ -40,12 +51,13 @@ def home():
     return {
         "status": "running",
         "service": "AI Farmer Advisory API",
-        "message": "API is working successfully"
+        "message": "AI Farmer Advisory API is working"
     }
 
 
-# Health check
-
+# =========================================================
+# HEALTH CHECK
+# =========================================================
 
 @app.get("/health")
 def health():
@@ -55,8 +67,9 @@ def health():
     }
 
 
-# Send agricultural advisory
-
+# =========================================================
+# SEND FARMER ADVISORY
+# =========================================================
 
 @app.post("/send-advisory/{farmer_id}")
 def send_advisory(farmer_id: str):
@@ -70,24 +83,26 @@ def send_advisory(farmer_id: str):
         print(f"Farmer ID: {farmer_id}")
 
 
-   
+        # =================================================
         # 1. FETCH FARMER
-       
+        # =================================================
 
         print("\n[1/5] Fetching farmer information...")
 
         farmer = get_farmer(farmer_id)
 
         print("Farmer information received.")
-        print(f"Farmer name: {farmer['name']}")
+
+        print(f"Name: {farmer['name']}")
         print(f"Phone: {farmer['phone_number']}")
         print(f"District: {farmer['district']}")
         print(f"Sector: {farmer['sector']}")
         print(f"Crop: {farmer['crop_type']}")
 
 
+        # =================================================
         # 2. FETCH WEATHER
-        
+        # =================================================
 
         location = (
             f"{farmer['sector']}, "
@@ -96,7 +111,7 @@ def send_advisory(farmer_id: str):
         )
 
         print("\n[2/5] Fetching weather...")
-        print(f"Weather location: {location}")
+        print(f"Location: {location}")
 
         weather = get_weather(location)
 
@@ -117,6 +132,7 @@ def send_advisory(farmer_id: str):
         cloudcover = current_weather["cloudcover"]
 
         print("Weather received.")
+
         print(f"Temperature: {temperature} °C")
         print(f"Condition: {condition}")
         print(f"Rainfall: {rainfall} mm")
@@ -125,9 +141,9 @@ def send_advisory(farmer_id: str):
         print(f"Cloud cover: {cloudcover}%")
 
 
-     
+        # =================================================
         # 3. FETCH ML RECOMMENDATION
-      
+        # =================================================
 
         print("\n[3/5] Fetching ML recommendation...")
 
@@ -136,12 +152,15 @@ def send_advisory(farmer_id: str):
         )
 
         print("Recommendation received.")
+
         print(recommendation)
 
-        # 4. GENERATE SMS WITH GEMINI
-    
 
-        print("\n[4/5] Generating agricultural advisory...")
+        # =================================================
+        # 4. GENERATE ADVISORY USING GEMINI
+        # =================================================
+
+        print("\n[4/5] Generating advisory using Gemini...")
 
         message = generate_advisory(
             farmer,
@@ -157,9 +176,9 @@ def send_advisory(farmer_id: str):
         print("----------------------------------------")
 
 
-      
+        # =================================================
         # 5. SEND SMS
-      
+        # =================================================
 
         print("\n[5/5] Sending SMS...")
 
@@ -169,15 +188,19 @@ def send_advisory(farmer_id: str):
         )
 
         print("SMS sent successfully.")
-        print("SMS response:", sms_response)
+
+        print("SMS response:")
+        print(sms_response)
 
 
-        # RETURN RESULT
-       
+        # =================================================
+        # SUCCESS RESPONSE
+        # =================================================
 
         print("\n========================================")
         print("ADVISORY COMPLETED SUCCESSFULLY")
         print("========================================")
+
 
         return {
 
@@ -216,8 +239,9 @@ def send_advisory(farmer_id: str):
         }
 
 
+    # =====================================================
     # ERROR HANDLING
-  
+    # =====================================================
 
     except Exception as e:
 
@@ -229,8 +253,10 @@ def send_advisory(farmer_id: str):
 
         traceback.print_exc()
 
+
         raise HTTPException(
             status_code=500,
+
             detail={
                 "status": "error",
                 "message": str(e),
