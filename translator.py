@@ -112,43 +112,19 @@ def generate_advisory(
     # =====================================================
 
     prompt = f"""
+    Translate into Kinyarwanda in simple farmer language. 
+    Keep it short and practical. 
+    Explain the recommendations using words like low, moderate, high, suitable, and needs attention. Do not include raw numbers.
+
+Hi {name}, your crop is {crop}, and you are in {district}, {sector}. We compared your farm with similar farms in your area. 
+The recommendation suggests a suitable level of fertilizer, irrigation, and pest control for your crop and season.
+Today’s weather is {condition}, with {temperature} °C, {rainfall} mm rainfall, {humidity}% humidity, and {wind_speed} km/h wind speed.
+This weather affects crop growth, water needs, and pest pressure. 
+We recommend using the right fertilizer, giving enough water, protecting the crop from pests, and checking the field regularly. 
+This advice is based on similar farms and is meant to help you improve your harvest.
 You are an agricultural advisory assistant helping
 smallholder farmers in Rwanda.
 
-Generate a short SMS in very simple Kinyarwanda.
-
-Farmer:
-Name: {name}
-Crop: {crop}
-District: {district}
-Sector: {sector}
-
-Weather:
-Temperature: {temperature} °C
-Condition: {condition}
-Rainfall: {rainfall} mm
-Humidity: {humidity}%
-Wind speed: {wind_speed} km/h
-
-Machine learning recommendation:
-Fertilizer rate: {fertilizer_rate}
-Inorganic fertilizer rate: {inorganic_fertilizer_rate}
-Irrigation rate: {irrigation_rate}
-Pesticide rate: {pesticide_rate}
-
-Requirements:
-
-- Use simple Kinyarwanda that a rural farmer can understand.
-- Include the weather information.
-- Include temperature and rainfall.
-- Include the fertilizer recommendation.
-- Include irrigation recommendation.
-- Include pesticide recommendation.
-- Give practical advice.
-- Keep the SMS short.
-- Do not invent information.
-- Preserve all important numbers.
-- Return ONLY the SMS.
 """
 
 
@@ -203,14 +179,9 @@ Requirements:
 
             fallback_message = (
                 f"Muraho {name}. "
-                f"Ikirere muri {sector}: {condition}, "
-                f"ubushyuhe ni {temperature}°C, "
-                f"imvura ni {rainfall}mm, "
-                f"ubukonje bw'ikirere ni {humidity}%. "
-                f"Ku bihingwa bya {crop}: "
-                f"fumbire yasabwe ni {fertilizer_rate}, "
-                f"kuhira ni {irrigation_rate}, "
-                f"n'imiti yica udukoko ni {pesticide_rate}."
+f"Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
+Niba utabasha kubona ibisubizo vuba, nyamuneka uhore wihanganiye, turagusubiza muri make.
+Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
             )
 
 
@@ -231,14 +202,9 @@ Requirements:
 
         fallback_message = (
             f"Muraho {name}. "
-            f"Ikirere: {condition}. "
-            f"Ubushyuhe: {temperature}°C. "
-            f"Imvura: {rainfall}mm. "
-            f"Ubushuhe: {humidity}%. "
-            f"Ku bihingwa bya {crop}, "
-            f"fumbire yasabwe: {fertilizer_rate}. "
-            f"Kuhira: {irrigation_rate}. "
-            f"Imiti yica udukoko: {pesticide_rate}."
+f"Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
+Niba utabasha kubona ibisubizo vuba, nyamuneka uhore wihanganiye, turagusubiza muri make.
+Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
         )
 
         return {
@@ -263,13 +229,9 @@ Requirements:
 
         fallback_message = (
             f"Muraho {name}. "
-            f"Ikirere: {condition}, "
-            f"ubushyuhe {temperature}°C, "
-            f"imvura {rainfall}mm. "
-            f"Ku bihingwa bya {crop}, "
-            f"fumbire: {fertilizer_rate}, "
-            f"kuhira: {irrigation_rate}, "
-            f"imiti yica udukoko: {pesticide_rate}."
+f"Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
+Niba utabasha kubona ibisubizo vuba, nyamuneka uhore wihanganiye, turagusubiza muri make.
+Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
         )
 
 
