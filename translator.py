@@ -116,7 +116,8 @@ def generate_advisory(
 smallholder farmers in Rwanda.
 Translate into Kinyarwanda in simple farmer language. 
     Keep it short and practical. 
-    Explain the recommendations using words like low, moderate, high, suitable, and needs attention. Do not include raw numbers.
+    Explain the recommendations using words like low, moderate, high, suitable, and needs attention. 
+    Include raw numbers and the recommendation alongside it.
 
 Message: Hi {name}, your crop is {crop}, and you are in {district}, {sector}. We compared your farm with similar farms in your area. 
 The recommendation suggests a suitable level of fertilizer, irrigation, and pest control for your crop and season.
