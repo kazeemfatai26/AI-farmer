@@ -178,10 +178,10 @@ This advice is based on similar farms and is meant to help you improve your harv
             # ------------------------------------------------
 
             fallback_message = (
-                f"Muraho {name}. "
+                f"""Muraho {name}. "
 f"Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
 Niba utabasha kubona ibisubizo vuba, nyamuneka uhore wihanganiye, turagusubiza muri make.
-Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
+Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."""
             )
 
 
@@ -202,9 +202,9 @@ Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
 
         fallback_message = (
             f"Muraho {name}. "
-f"Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
+f"""Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
 Niba utabasha kubona ibisubizo vuba, nyamuneka uhore wihanganiye, turagusubiza muri make.
-Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
+Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."""
         )
 
         return {
@@ -229,9 +229,9 @@ Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
 
         fallback_message = (
             f"Muraho {name}. "
-f"Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
+f"""Murakoze kubaha amakuru. Ibi birimo gutunganywa mu buryo bw’inyuma, kandi turacyakora kugira ngo tubagezeho ibisubizo by’ukurima kwawe. 
 Niba utabasha kubona ibisubizo vuba, nyamuneka uhore wihanganiye, turagusubiza muri make.
-Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."
+Turabashimiye kubumvaga, kandi turacyakora kugira ngo tugufashe mu gihe gito."""
         )
 
 
