@@ -112,18 +112,18 @@ def generate_advisory(
     # =====================================================
 
     prompt = f"""
-    Translate into Kinyarwanda in simple farmer language. 
+    You are an agricultural advisory assistant helping
+smallholder farmers in Rwanda.
+Translate into Kinyarwanda in simple farmer language. 
     Keep it short and practical. 
     Explain the recommendations using words like low, moderate, high, suitable, and needs attention. Do not include raw numbers.
 
-Hi {name}, your crop is {crop}, and you are in {district}, {sector}. We compared your farm with similar farms in your area. 
+Message: Hi {name}, your crop is {crop}, and you are in {district}, {sector}. We compared your farm with similar farms in your area. 
 The recommendation suggests a suitable level of fertilizer, irrigation, and pest control for your crop and season.
 Today’s weather is {condition}, with {temperature} °C, {rainfall} mm rainfall, {humidity}% humidity, and {wind_speed} km/h wind speed.
 This weather affects crop growth, water needs, and pest pressure. 
 We recommend using the right fertilizer, giving enough water, protecting the crop from pests, and checking the field regularly. 
 This advice is based on similar farms and is meant to help you improve your harvest.
-You are an agricultural advisory assistant helping
-smallholder farmers in Rwanda.
 
 """
 
